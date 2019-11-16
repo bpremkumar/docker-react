@@ -16,3 +16,27 @@ before_install:
 # run the test
 script: 
   - docker run -e CI=true bpremkumar/docker-react npm run test -- --coverage
+
+# this section tells Travis CI to deploy on to target Cloud
+# Comes preconfigured for differnt clouds
+#  DockerReact-env.kikx3m4fw9.us-west-2.elasticbeanstalk.com -- this is the URL to extract the below details
+deploy:
+  provider: elasticbeanstalk # this tells to deploy to AWS 
+  region: "us-west-2"
+  app: "docker-react"
+  env: "DockerReact-env"
+
+  # This is the S3 bucket (storage) that Travis CI will put the file into
+  bucket_name: "elasticbeanstalk-us-west-2-495451860951"
+  bucket_path: "docker-react"
+  # This says only deploy on code push to master
+  on:
+    branch: master
+
+  access_key_id: $AWS_Access_Key
+  secret_access_key:
+    secure: $AWS_Secret_Key
+
+  # In case of error then use the below
+  # access_key_id: $AWS_ACCESS_KEY
+  # secret_access_key: $AWS_SECRET_KEY
