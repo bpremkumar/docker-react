@@ -1,0 +1,18 @@
+# We need Super user privileges whenever we use Travis & Docker
+sudo: required
+
+#If the build fails with "rakefile not found" then add below
+# language: generic
+
+# Tells travis that we need docker
+services:
+  - docker
+
+# tells what we want to do before the test runs
+# Use the tag instead of container id, so that it works 
+before_install:
+  - docker build -t bpremkumar/docker-react -f Dockerfile.dev . 
+
+# run the test
+script: 
+  - docker run -e CI=true bpremkumar/docker-react npm run test -- --coverage
