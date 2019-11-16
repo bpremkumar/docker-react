@@ -27,7 +27,8 @@ deploy:
   env: "DockerReact-env"
 
   # This is the S3 bucket (storage) that Travis CI will put the file into
-  bucket_name: "elasticbeanstalk-us-west-2-495451860951"
+  #bucket_name: "elasticbeanstalk-us-west-2-495451860951"
+  bucket: "elasticbeanstalk-us-west-2-495451860951"
   bucket_path: "docker-react"
   # This says only deploy on code push to master
   on:
@@ -37,6 +38,7 @@ deploy:
   secret_access_key:
     secure: $AWS_Secret_Key
 
+  edge: true # opt in for V2 
   # In case of error then use the below
   # access_key_id: $AWS_ACCESS_KEY
   # secret_access_key: $AWS_SECRET_KEY
